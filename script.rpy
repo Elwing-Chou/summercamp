@@ -11,7 +11,7 @@ define player = Character("[player_name]")
 label start:
 
     # scene bg room
-    show eileen happy
+    show alice normal
     e "請問你的名字是?"
     $ player_name = renpy.input("請輸入名字", length=8)
     e "喔 你叫做 [player_name] 嗎?"
@@ -19,5 +19,5 @@ label start:
         "是":
             e "好喔"
         "否":
-            e "xxx"
+            jump start
     return
