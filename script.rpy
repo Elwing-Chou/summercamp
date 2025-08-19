@@ -20,4 +20,21 @@ label start:
             e "好喔"
         "否":
             jump start
-    return
+
+label game:
+    e "來玩個剪刀石頭布吧!"
+    menu:
+        "剪刀":
+            pass
+        "石頭":
+            pass
+        "布":
+            pass
+
+
+
+
+
+
+
+
