@@ -21,7 +21,12 @@ label start:
         "否":
             jump start
 
+# !!!
+default win = 0
+default lose = 0
+default even = 0
 label game:
+    $ t = ["剪刀", "石頭", "布"]
     e "來玩個剪刀石頭布吧!"
     menu:
         "剪刀":
@@ -31,12 +36,30 @@ label game:
         "布":
             $ my = 2
     $ com = renpy.random.randint(0, 2)
+    e "你出 [t[my]] 我出 [t[com]]"
     if my == (com + 1) % 3:
         e "你贏了"
+        $ win = win + 1
     elif com == (my + 1) % 3:
         e "你輸了"
+        $ lose = lose + 1
     else:
         e "平手"
+        $ even = even + 1
+
+    # !!!!
+    if win == 3:
+        jump final
+    elif lose == 3:
+        jump final
+    else:
+        jump game
+
+
+label final:
+    e "贏:[win] 輸:[lose] 平手:[even]"
+    return
+
 
 
 
