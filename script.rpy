@@ -38,14 +38,17 @@ label game:
     $ com = renpy.random.randint(0, 2)
     e "你出 [t[my]] 我出 [t[com]]"
     if my == (com + 1) % 3:
-        e "你贏了"
-        $ win = win + 1
+        e "你贏了"win
+        $ win =  + 1
+        show alice sad
     elif com == (my + 1) % 3:
         e "你輸了"
         $ lose = lose + 1
+        show alice happy
     else:
         e "平手"
         $ even = even + 1
+        show alice normal
 
     # !!!!
     if win == 3:
