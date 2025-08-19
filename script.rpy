@@ -25,12 +25,18 @@ label game:
     e "來玩個剪刀石頭布吧!"
     menu:
         "剪刀":
-            pass
+            $ my = 0
         "石頭":
-            pass
+            $ my = 1
         "布":
-            pass
-
+            $ my = 2
+    $ com = renpy.random.randint(0, 2)
+    if my == (com + 1) % 3:
+        e "你贏了"
+    elif com == (my + 1) % 3:
+        e "你輸了"
+    else:
+        e "平手"
 
 
 
