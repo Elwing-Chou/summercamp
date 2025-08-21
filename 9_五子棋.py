@@ -11,6 +11,7 @@ pg.display.set_caption("五子棋")
 bg = pg.Surface(screen.get_size())
 bg = bg.convert()
 bg.fill((199, 167, 82))
+screen.blit(bg, (0,0))
 pg.display.update()
 
 running = True
