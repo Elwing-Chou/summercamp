@@ -28,6 +28,8 @@ screen.blit(bg, (0,0))
 pg.display.update()
 
 # 建立一個永不結束的迴圈(遊戲才不會結束)
+# 第幾回合
+game_round = 0
 running = True
 while running:
     # 收取你的遊戲任何事件(滑鼠點擊/鍵盤按鈕...)
@@ -43,11 +45,17 @@ while running:
             if 0 < x_inter <= 15 and 0 < y_inter <= 15:
                 # pygame.draw.circle(畫布, 顏色, (圓心x坐標, 圓心y坐標), 半徑, 線寬)
                 # 線寬=0, 實心
-                pg.draw.circle(bg, (50, 50, 50), (x_inter*40, y_inter*40), 20, 0)
+                if game_round % 2 == 0:
+                    color = (50, 50, 50)
+                else:
+                    color = (200, 200, 200)
+                pg.draw.circle(bg, color, (x_inter*40, y_inter*40), 20, 0)
                 # 把某個圖層貼到上一層
                 screen.blit(bg, (0, 0))
                 # 對畫面進行更新(才會真的秀出來)
                 pg.display.update()
+                # 每下一子就回合+1
+                game_round = game_round + 1
 
         # 如果收到的事件是按x
         if event.type == pg.QUIT:
