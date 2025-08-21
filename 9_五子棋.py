@@ -27,6 +27,10 @@ screen.blit(bg, (0,0))
 # 對畫面進行更新(才會真的秀出來)
 pg.display.update()
 
+# 準備棋盤
+PLAYER_1 = 0
+PLAYER_2 = 1
+board = [[-1] * 15 for i in range(15)]
 # 建立一個永不結束的迴圈(遊戲才不會結束)
 # 第幾回合
 game_round = 0
