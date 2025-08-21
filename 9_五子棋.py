@@ -1,3 +1,4 @@
+import time
 import pygame as pg
 # 因為原本程式已經太長了, 把獨立拉出來變成一個功能(print,int...)
 # 在這個board的i, j地方落子會不會贏
@@ -22,6 +23,67 @@ def checkwinner(board, bi, bj):
     if count == 4:
         # return 回傳值
         return True
+    # 橫的確認
+    count = 0
+    player = board[bi][bj]
+    # 往右一直找, 看有幾個跟我同色的
+    for j in range(bj+1, 15):
+        if board[bi][j] == player:
+            count = count + 1
+        else:
+            # 如果不同色或者沒下, break
+            break
+    # 往左一值找(bi-1找到0(第二個參數) -1步數
+    for j in range(bj-1, -1, -1):
+        if board[bi][j] == player:
+            count = count + 1
+        else:
+            # 如果不同色或者沒下, break
+            break
+    if count == 4:
+        # return 回傳值
+        return True
+
+    # 左上右下確認
+    count = 0
+    player = board[bi][bj]
+    # 往左上
+    offset = 1
+    while 0 <= bi-offset < 15 and 0 <= bj - offset < 15:
+        if board[bi-offset][bj-offset] == player:
+            count = count + 1
+        offset = offset + 1
+
+    # 往右下
+    offset = 1
+    while 0 <= bi+offset < 15 and 0 <= bj + offset < 15:
+        if board[bi+offset][bj+offset] == player:
+            count = count + 1
+        offset = offset + 1
+    if count == 4:
+        # return 回傳值
+        return True
+
+    # 右上左下確認
+    count = 0
+    player = board[bi][bj]
+    # 往右上
+    offset = 1
+    while 0 <= bi - offset < 15 and 0 <= bj + offset < 15:
+        if board[bi-offset][bj+offset] == player:
+            count = count + 1
+        offset = offset + 1
+
+    # 往左下
+    offset = 1
+    while 0 <= bi+offset < 15 and 0 <= bj - offset < 15:
+        if board[bi+offset][bj-offset] == player:
+            count = count + 1
+        offset = offset + 1
+    if count == 4:
+        # return 回傳值
+        return True
+
     return False
 
 
@@ -96,7 +158,14 @@ while running:
                 game_round = game_round + 1
                 # 檢查是否有贏家
                 if checkwinner(board, bi, bj):
-                   running = False
+                    # 字型選擇
+                    font = pg.font.Font(None, 200)
+                    # 字型的顯示
+                    text_surface = font.render("K.O.", True, (255, 0, 0))
+                    screen.blit(text_surface, (200, 200))
+                    pg.display.update()
+                    time.sleep(3)
+                    running = False
 
         # 如果收到的事件是按x
         if event.type == pg.QUIT:
