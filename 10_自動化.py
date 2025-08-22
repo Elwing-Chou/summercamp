@@ -1,6 +1,8 @@
 import undetected_chromedriver as uc
 import time
 import re
+import os
+import urllib.request as req
 import urllib.parse as parse
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -35,6 +37,20 @@ if __name__ == "__main__":
             result = re.search("imgurl=(.*(jpg|jpeg|gif|png|webp))", href)
             imgurl = parse.unquote(result.group(1))
             print(imgurl)
+            # !!!!! 創造google資料夾
+            dn = "google"
+            if not os.path.exists(dn):
+                os.makedirs(dn)
+            fn = dn + "/" + str(time.time()) + ".jpg"
+            # 加入header比較不會被擋掉
+            r = req.Request(imgurl)
+            r.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0")
+            resp = req.urlopen(r)
+            # 開啟本地端檔案寫入(wb: 寫入非純文字)
+            f = open(fn, "wb")
+            f.write(resp.read())
+            f.close()
+
         except:
             print("這個放棄")
 
